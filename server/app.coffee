@@ -24,13 +24,9 @@ require './config/seed'  if config.seedDB
 # Setup HTTP and HTTPS servers
 app = express()
 
-console.log config.ssl.key
-
 options =
   key: fs.readFileSync(config.ssl.key).toString()
   cert: fs.readFileSync(config.ssl.cert).toString()
-
-console.log options
 
 httpServer = require('http').createServer app
 httpsServer = require('https').createServer options, app
@@ -40,12 +36,11 @@ require('./routes') app
 
 # Start HTTP server
 httpServer.listen config.http_port, ->
-  console.log 'Express server listening on %d, in %s mode', config.http_port, app.get('env')
-
+  console.log 'Express HTTP server listening on %d, in %s mode', config.http_port, app.get('env')
 
 # Start HTTPS server
 httpsServer.listen config.https_port, ->
-  console.log 'Express server listening on %d, in %s mode', config.https_port, app.get('env')
+  console.log 'Express HTTPS server listening on %d, in %s mode', config.https_port, app.get('env')
 
 # Expose app
 exports = module.exports = app

@@ -28,12 +28,11 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON 'package.json'
     yeoman:
       # configurable paths
-      
       dist: 'dist'
 
     express:
       options:
-        port: process.env.PORT or 9000
+        port: process.env.HTTP_PORT or 8080
 
       dev:
         options:
@@ -49,7 +48,6 @@ module.exports = (grunt) ->
         url: 'http://localhost:<%= express.options.port %>'
 
     watch:
-
       coffeeNode:
         files: ['server/**/*.{coffee,litcoffee,coffee.md}']
         tasks: ['newer:coffee']
@@ -138,7 +136,7 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: true
-          cwd:  '.tmp/'
+          cwd: '.tmp/'
           src: '{,*/}*.css'
           dest: '.tmp/'
         ]
@@ -178,10 +176,10 @@ module.exports = (grunt) ->
           /bootstrap.js/
           '/json3/'
           '/es5-shim/'
-          
+
           /bootstrap.css/
           /font-awesome.css/
-          
+
         ]
 
     # Renames files for browser caching purposes
@@ -218,7 +216,7 @@ module.exports = (grunt) ->
         patterns:
           js: [
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/g
-            'Update the JS to reference our revved images']
+             'Update the JS to reference our revved images']
           ]
 
     # The following *-min tasks produce minified files in the dist folder
@@ -254,7 +252,6 @@ module.exports = (grunt) ->
     # Package all the html partials into a single javascript payload
     ngtemplates:
       options:
-
         # This should be the name of your apps angular module
         module: 'tildaSiteApp'
         htmlmin:
@@ -417,11 +414,11 @@ module.exports = (grunt) ->
 
         files:
           '<%= yeoman.client %>/index.html': [[
-            '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js'
-            '!{.tmp,<%= yeoman.client %>}/app/app.js'
-            '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js'
-            '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js'
-          ]]
+                                                '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js'
+                                                '!{.tmp,<%= yeoman.client %>}/app/app.js'
+                                                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js'
+                                                '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js'
+                                              ]]
 
       # Inject component css into index.html
       css:
@@ -452,10 +449,14 @@ module.exports = (grunt) ->
     @async()
 
   grunt.registerTask 'serve', (target) ->
+
+    grunt.task.run [
+      'env:all'
+    ]
+
     if target is 'dist'
       return grunt.task.run [
         'build'
-        'env:all'
         'env:prod'
         'express:prod'
         'wait'
