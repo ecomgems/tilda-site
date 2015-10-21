@@ -26,6 +26,13 @@ module.exports = (app) ->
   app.use methodOverride()
   app.use cookieParser()
 
+  # Force to use main host name
+  # That's SEO Trick
+  if 'production' is env
+    forceDomain = require 'forcedomain'
+    app.use forceDomain
+      hostname: config.hostname
+
   if 'production' is env
     app.use morgan('dev')
 

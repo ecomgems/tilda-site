@@ -12,6 +12,8 @@ requiredProcessEnv = (name) ->
 all =
   env: process.env.NODE_ENV
 
+  hostname: process.env.HOSTNAME or 'hostname'
+
   # Root path of server
   root: path.normalize(__dirname + '/../../..')
 

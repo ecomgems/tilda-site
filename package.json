@@ -12,6 +12,7 @@
     "errorhandler": "~1.3.6",
     "express": "~4.12.4",
     "express-session": "~1.11.2",
+    "forcedomain": "^0.5.0",
     "https": "^1.0.0",
     "lodash": "~3.9.3",
     "method-override": "~2.3.3",

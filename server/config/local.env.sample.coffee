@@ -7,6 +7,7 @@
 
 module.exports =
   DOMAIN:           'http://localhost:9000'
+  HOSTNAME:         'localhost'
   SESSION_SECRET:   'tildasite-secret'
 
   # Control debug level for modules using visionmedia/debug
