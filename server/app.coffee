@@ -21,6 +21,17 @@ mongoose.connection.on 'error', (err) ->
 # Populate DB with sample data
 require './config/seed'  if config.seedDB
 
+# Init pages on fly
+Page = require './api/page/page.model'
+Page
+.initProject()
+.then (project) ->
+  Page.initPages(project)
+.catch (err)->
+  console.error err
+  return
+
+
 # Setup HTTP and HTTPS servers
 app = express()
 
@@ -41,6 +52,9 @@ httpServer.listen config.http_port, ->
 # Start HTTPS server
 httpsServer.listen config.https_port, ->
   console.log 'Express HTTPS server listening on %d, in %s mode', config.https_port, app.get('env')
+
+
+
 
 # Expose app
 exports = module.exports = app

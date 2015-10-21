@@ -39,8 +39,14 @@ all =
       db:
         safe: true
 
-
-
+  # Tilda Access Credentials
+  tilda:
+    api:
+      project_id: process.env.TILDA_PROJECT_ID or 'project-id'
+      public_key: process.env.TILDA_PUBLIC_KEY or 'public-key'
+      secret_key: process.env.TILDA_SECRET_KEY or 'secret-key'
+    pages:
+      no_document: process.env.TILDA_404 or '404'
 
 
 # Export the config object based on the NODE_ENV

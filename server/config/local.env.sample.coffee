@@ -15,3 +15,9 @@ module.exports =
 
   SSL_KEY: 'path-to-key'
   SSL_CERT: 'path-to-cert'
+
+  # Tilda Access Credentials
+  TILDA_PROJECT_ID: 'project-id'
+  TILDA_PUBLIC_KEY: 'public-key'
+  TILDA_SECRET_KEY: 'secret-key'
+  TILDA_404: '404'
