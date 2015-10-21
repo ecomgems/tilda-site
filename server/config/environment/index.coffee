@@ -16,7 +16,13 @@ all =
   root: path.normalize(__dirname + '/../../..')
 
   # Server port
-  port: process.env.PORT or 9000
+  http_port: process.env.HTTP_PORT or 8080
+  https_port: process.env.HTTPS_PORT or 8443
+
+  # SSL Certificates
+  ssl:
+    key: process.env.SSL_KEY or 'path-to-key'
+    cert: process.env.SSL_CERT or 'path-to-cert'
 
   # Should we populate the DB with sample data?
   seedDB: false
@@ -25,18 +31,13 @@ all =
   secrets:
     session: 'tilda-site-secret'
 
-  # List of user roles
-  userRoles: [
-    'guest'
-    'user'
-    'admin'
-  ]
-
   # MongoDB connection options
   mongo:
     options:
       db:
         safe: true
+
+
 
 
 

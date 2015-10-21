@@ -11,3 +11,6 @@ module.exports =
 
   # Control debug level for modules using visionmedia/debug
   DEBUG: ''
+
+  SSL_KEY: 'path-to-key'
+  SSL_CERT: 'path-to-cert'

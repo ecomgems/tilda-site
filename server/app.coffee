@@ -6,6 +6,7 @@ Main application file
 # Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV or 'development'
 
+fs = require 'fs'
 express = require 'express'
 mongoose = require 'mongoose'
 config = require './config/environment'
@@ -20,15 +21,31 @@ mongoose.connection.on 'error', (err) ->
 # Populate DB with sample data
 require './config/seed'  if config.seedDB
 
-# Setup server
+# Setup HTTP and HTTPS servers
 app = express()
-server = require('http').createServer app
+
+console.log config.ssl.key
+
+options =
+  key: fs.readFileSync(config.ssl.key).toString()
+  cert: fs.readFileSync(config.ssl.cert).toString()
+
+console.log options
+
+httpServer = require('http').createServer app
+httpsServer = require('https').createServer options, app
+
 require('./config/express') app
 require('./routes') app
 
-# Start server
-server.listen config.port, config.ip, ->
-  console.log 'Express server listening on %d, in %s mode', config.port, app.get('env')
+# Start HTTP server
+httpServer.listen config.http_port, ->
+  console.log 'Express server listening on %d, in %s mode', config.http_port, app.get('env')
+
+
+# Start HTTPS server
+httpsServer.listen config.https_port, ->
+  console.log 'Express server listening on %d, in %s mode', config.https_port, app.get('env')
 
 # Expose app
 exports = module.exports = app
