@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    "bluebird": "^2.10.2",
     "body-parser": "~1.12.4",
     "composable-middleware": "~0.3.0",
     "compression": "~1.4.4",

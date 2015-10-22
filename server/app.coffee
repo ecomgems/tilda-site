@@ -10,7 +10,8 @@ fs = require 'fs'
 express = require 'express'
 config = require './config/environment'
 
-
+# Establish connection to Redis
+redis = require './components/connections/redis'
 
 # Populate DB with sample data
 require './config/seed'  if config.seedDB
