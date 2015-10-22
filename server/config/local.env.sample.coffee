@@ -21,3 +21,5 @@ module.exports =
   TILDA_PUBLIC_KEY: 'public-key'
   TILDA_SECRET_KEY: 'secret-key'
   TILDA_404: '404'
+
+  REDIS_URI: 'redis://localhost:6379'

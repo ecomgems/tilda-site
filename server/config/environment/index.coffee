@@ -33,11 +33,8 @@ all =
   secrets:
     session: 'tilda-site-secret'
 
-  # MongoDB connection options
-  mongo:
-    options:
-      db:
-        safe: true
+  redis:
+    uri: process.env.REDIS_URI or 'redis://localhost:6379'
 
   # Tilda Access Credentials
   tilda:

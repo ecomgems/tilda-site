@@ -11,9 +11,8 @@ module.exports = (app) ->
   # Insert routes below
   app.use '/api/hook', require './api/hook'
 
-  app.get '/', (req, res) ->
-    res.status(200).send 'ヽ(^ᴗ^)丿'
-    return
+  # Insert routes below
+  app.use '/', require './api/page'
 
 
 

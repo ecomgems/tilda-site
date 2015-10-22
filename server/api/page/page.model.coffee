@@ -1,60 +1,46 @@
 'use strict'
 
-
 Q = require 'q'
-mongoose = require 'mongoose'
-config = require '../../config/environment'
+redis = require '../../components/connections/redis'
 
-console.log config
+config = require '../../config/environment'
 
 Tilda = require '../../components/helpers/tilda'
 tilda = new Tilda config.tilda.api.public_key, config.tilda.api.secret_key
 
+class Page
 
-Schema = mongoose.Schema
+  @project = false
 
-# Instantiate new Schema
-PageSchema = new Schema
-  name: String
-  info: String
-  active: Boolean
+  @initProject = () ->
+    console.log "Prepare Tilda Project"
+    deferred = Q.defer()
 
-# Empty project object
-# to be filled on start
-project = false
+    tilda
+    .project config.tilda.api.project_id
+    .then (project) ->
 
+      deferred.resolve project
+      project
+    .then (project) ->
 
-PageSchema.statics.initProject = () ->
-  console.log "Prepare Tilda Project"
-  deferred = Q.defer()
-
-  tilda
-  .project config.tilda.api.project_id
-  .then (project) ->
-
-    deferred.resolve project
-    project
-  .then (project) ->
-
-    console.log project
+      console.log project
 
 
-  .catch (err) ->
-    deferred.reject err
+    .catch (err) ->
+      deferred.reject err
+      return
+
+    deferred.promise
+
+  @initPages = (project) ->
+    console.log "Prepare Tilda Pages for #{project.title}"
+    deferred = Q.defer()
+
+    # TODO Something
+
+    deferred.promise
+
     return
 
-  deferred.promise
-
-
-PageSchema.statics.initPages = (project) ->
-  console.log "Prepare Tilda Pages for #{project.title}"
-  deferred = Q.defer()
-
-
-  deferred.promise
-
-
-
-  return
-
-module.exports = mongoose.model 'Page', PageSchema
+module.exports = Page

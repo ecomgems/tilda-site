@@ -8,15 +8,9 @@ process.env.NODE_ENV = process.env.NODE_ENV or 'development'
 
 fs = require 'fs'
 express = require 'express'
-mongoose = require 'mongoose'
 config = require './config/environment'
 
-# Connect to database
-mongoose.connect config.mongo.uri, config.mongo.options
 
-mongoose.connection.on 'error', (err) ->
-  console.error "MongoDB connection error: #{err}"
-  process.exit -1
 
 # Populate DB with sample data
 require './config/seed'  if config.seedDB
@@ -52,7 +46,6 @@ httpServer.listen config.http_port, ->
 # Start HTTPS server
 httpsServer.listen config.https_port, ->
   console.log 'Express HTTPS server listening on %d, in %s mode', config.https_port, app.get('env')
-
 
 
 
