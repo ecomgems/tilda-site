@@ -60,6 +60,7 @@ class Page
 
     Page.getPublished(id)
     .then (value) ->
+
       if not value? or value < published
         def.resolve false
       else
@@ -88,11 +89,11 @@ class Page
   # if that's necessary
   # to recompile it
   ###
-  @compile = (page, protocol = 'http') ->
+  @compile = (page) ->
 
     def = Q.defer()
 
-    _page = page
+    _page = null
 
     # Validate if
     # we need to
@@ -117,6 +118,8 @@ class Page
 
     .then (page) ->
 
+      _page = page
+
       # Prepare content
       # for both HTTP and
       # HTTPS protocols
@@ -130,8 +133,6 @@ class Page
       httpContent = contents[0]
       httpsContent = contents[1]
 
-      _page = page
-
       Promises.all [
         Page.setHtml(_page.alias, httpContent, 'http')
         Page.setHtml(_page.alias, httpsContent, 'https')
@@ -140,6 +141,9 @@ class Page
     .then () ->
 
       Page.setPublished _page.id, _page.published
+
+    .then () ->
+      def.resolve _page
 
     .catch (err) ->
       def.reject err

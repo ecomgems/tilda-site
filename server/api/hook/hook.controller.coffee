@@ -2,18 +2,29 @@
 
 _ = require 'lodash'
 
+Page = require '../../api/page/page.model'
+
 # Register Hook
 # from Tilda
 exports.hook = (req, res) ->
 
-  console.log req.query
+  pageId = req.query.pageid
+  published = req.query.published
 
-  # TODO Get
+  # Send response
+  res.status(200).send 'OK'
 
-  res.status(200).json 'OK ヽ(^ᴗ^)丿'
+  # Refresh cached values
+  Page
+  .compile
+    id: pageId
+    published: published
+  .then (page) ->
+    console.log "Page #{page.title} was refreshed on Tilda"
+  .catch (err) ->
+    console.error err
+
   return
-
-
 
 handleError = (res, err) ->
   res.status(500).send err

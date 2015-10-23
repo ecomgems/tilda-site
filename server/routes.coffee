@@ -4,8 +4,6 @@ Main application routes
 
 'use strict'
 
-errors = require './components/errors'
-
 module.exports = (app) ->
 
   # Insert routes below
