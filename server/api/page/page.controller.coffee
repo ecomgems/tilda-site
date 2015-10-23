@@ -2,18 +2,21 @@
 
 _ = require 'lodash'
 
+Page = require './page.model'
+
 # Register Hook
 # from Tilda
 exports.get = (req, res) ->
 
-  console.log req.params
+  _path = if req.params.path? then req.params.path else ''
+  Page
+    .getHtml(_path)
+    .then (html) ->
+      res.status(200).send html
+    .catch (err) ->
+      handleError(res, err)
 
-  # TODO Get
-
-  res.status(200).send 'ヽ(^ᴗ^)丿'
   return
-
-
 
 
 handleError = (res, err) ->
