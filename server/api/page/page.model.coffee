@@ -58,7 +58,7 @@ class Page
 
     def = Q.defer()
 
-    @getPublished(id)
+    Page.getPublished(id)
     .then (value) ->
       if not value? or value < published
         def.resolve false
@@ -101,8 +101,6 @@ class Page
     @isPageFresh page.id, page.published
     .then (isFresh) ->
 
-      console.log 'Is fresh?', isFresh
-
       if isFresh
         # Return page
         # and cancel
@@ -135,13 +133,11 @@ class Page
       _page = page
 
       Promises.all [
-        Page.setHtml(_page.alias, httpContent, 'http'),
+        Page.setHtml(_page.alias, httpContent, 'http')
         Page.setHtml(_page.alias, httpsContent, 'https')
       ]
 
     .then () ->
-
-      console.log "I've stored both of contents"
 
       Page.setPublished _page.id, _page.published
 
@@ -169,9 +165,9 @@ class Page
         promises = []
 
         for page in pages
-          promises.push @compile page
+          promises.push Page.compile page
 
-        Promises.app promises
+        Promises.all promises
 
       # Resolve promise
       # to initialize
@@ -193,7 +189,10 @@ class Page
     def = Q.defer()
 
     templatePath = './template/page.liquid'
-    fetchPartsPromises = [fs.readFileAsync(templatePath, 'utf8'), Project.get(config.tilda.api.project_id)]
+    fetchPartsPromises = [
+      fs.readFileAsync(templatePath, 'utf8')
+      Project.get(config.tilda.api.project_id)
+    ]
 
     Promises
     .all fetchPartsPromises
