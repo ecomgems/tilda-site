@@ -10,7 +10,7 @@ exports.hook = (req, res) ->
 
   # TODO Get
 
-  res.status(200).json 'ヽ(^ᴗ^)丿'
+  res.status(200).json 'OK'
   return
 
 
