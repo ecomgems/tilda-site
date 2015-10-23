@@ -44,7 +44,22 @@ class Project
     deferred.promise
 
   @get = () ->
-    return
+    def = Q.defer()
+
+    redis
+    .getAsync 'project'
+    .then (projectJson) ->
+
+      project = JSON.parse(projectJson)
+      def.resolve project
+
+      return
+
+    .catch (err) ->
+      def.reject err
+      return
+
+    def.promise
 
   @set = (project) ->
 
