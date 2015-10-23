@@ -23,3 +23,5 @@ module.exports =
   TILDA_404: '404'
 
   REDIS_URI: 'redis://localhost:6379'
+
+  FACEBOOK_APP_ID: 'facebook-app-id'

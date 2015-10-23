@@ -20,6 +20,8 @@ Project
 .initProject()
 .then (project) ->
   Page.initPages(project)
+.then () ->
+  console.log 'Pages are ready ヽ(^ᴗ^)丿'
 .catch (err)->
   console.error err
   return

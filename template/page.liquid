@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ page.title }}</title>
+
+    <meta property="og:url" content="{{ protocol }}://{{ config.hostname }}/{{ page.alias }}" />
+    <meta property="og:image" content="{{ page.img }}" />
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta property="og:description" content="{{ page.descr }}" />
+    <meta property="og:type" content="website" />
+    <meta property="fb:app_id" content="{{ config.facebook.app_id }}" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta name="description" content="{{ page.descr }}" />
+
+    {% if config.favicon %}
+    <link rel="shortcut icon" href="{{ config.favicon_url }}">
+    {% endif %}
+
+    {% for css_file in project.css %}
+    <link href="{{ css_file }}" rel="stylesheet" media="screen">
+    {% endfor %}
+
+    {% for js_file in project.js %}
+    <script src="{{ js_file }}"></script>
+    {% endfor %}
+
+    {% if project.typekitid %}
+    <script src="//use.typekit.net/{{ project.typekitid }}.js"></script>
+    <script>try{Typekit.load({ async: false });}catch(e){}</script>
+    {% endif %}
+
+</head>
+
+<body style="margin:0;">
+
+    {{ page.html }}
+
+</body>
+</html>

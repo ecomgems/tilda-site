@@ -45,6 +45,10 @@ all =
     pages:
       no_document: process.env.TILDA_404 or '404'
 
+  facebook:
+    app_id: process.env.FACEBOOK_APP_ID or 'facebook-app-id'
+
+  favicon_url: process.env.FAVICON_URL or false
 
 # Export the config object based on the NODE_ENV
 # ==============================================

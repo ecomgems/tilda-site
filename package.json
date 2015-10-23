@@ -15,6 +15,7 @@
     "express-session": "~1.11.2",
     "forcedomain": "^0.5.0",
     "https": "^1.0.0",
+    "liquid-node": "^2.6.1",
     "lodash": "~3.9.3",
     "md5": "^2.0.0",
     "method-override": "~2.3.3",

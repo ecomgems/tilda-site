@@ -6,11 +6,11 @@ _ = require 'lodash'
 # from Tilda
 exports.hook = (req, res) ->
 
-  console.log req.params
+  console.log req.query
 
   # TODO Get
 
-  res.status(200).json 'OK'
+  res.status(200).json 'OK ヽ(^ᴗ^)丿'
   return
 
 
