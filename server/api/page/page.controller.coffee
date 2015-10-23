@@ -1,8 +1,6 @@
 'use strict'
 
 _ = require 'lodash'
-redis = require '../../components/connections/redis'
-
 
 # Register Hook
 # from Tilda
@@ -14,6 +12,7 @@ exports.get = (req, res) ->
 
   res.status(200).send 'ヽ(^ᴗ^)丿'
   return
+
 
 
 
