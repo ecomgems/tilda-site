@@ -3,9 +3,9 @@
 Q = require 'q'
 
 config = require '../../config/environment'
-redis = require '../../components/helpers/redis'
+redis = require '../../helpers/redis'
 
-Tilda = require '../../components/helpers/tilda'
+Tilda = require '../../helpers/tilda'
 tilda = new Tilda config.tilda.api.public_key, config.tilda.api.secret_key
 
 Project = require '../project/project.model'

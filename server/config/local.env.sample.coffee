@@ -33,3 +33,10 @@ module.exports =
 
   # Google Analytics ID
   GOOGLE_ANALYTICS_ID: 'google-analytics-id'
+
+  # Amazon S3 and CloudFront
+  AMAZON_API_KEY: 'key'
+  AMAZON_API_SECRET: 'secret'
+  AMAZON_BUCKET: 'bucket'
+  AMAZON_REGION: 'us-east-1'
+  AMAZON_CDN_DOMAIN: 'cdn-domain'

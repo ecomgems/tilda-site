@@ -2,8 +2,8 @@
 
 express = require 'express'
 controller = require './hook.controller'
-securityCheck = require '../../components/helpers/security'
-projectCheck = require '../../components/helpers/project'
+securityCheck = require '../../helpers/security'
+projectCheck = require '../../helpers/project'
 
 router = express.Router()
 

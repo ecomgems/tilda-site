@@ -45,14 +45,29 @@ all =
     pages:
       no_document: process.env.TILDA_404 or '404'
 
+  # Facebook App ID
   facebook:
     app_id: process.env.FACEBOOK_APP_ID or 'facebook-app-id'
 
+  # Direct URL to Favicon
   favicon_url: process.env.FAVICON_URL or false
 
+  # Google Analytics
   google:
     analytics:
       id: process.env.GOOGLE_ANALYTICS_ID or false
+
+  # Access to Amazon
+  # S3 and CloudFront
+  amazon:
+    key: process.env.AMAZON_API_KEY or 'key'
+    secret: process.env.AMAZON_API_SECRET or 'secret'
+    bucket: process.env.AMAZON_BUCKET or 'saas-contacts'
+    region: process.env.AMAZON_REGION or 'us-east-1'
+    cdn:
+      domain: process.env.AMAZON_CDN_DOMAIN or 'cdn-domain'
+
+
 
 # Export the config object based on the NODE_ENV
 # ==============================================

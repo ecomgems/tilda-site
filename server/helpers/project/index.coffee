@@ -1,6 +1,6 @@
 'use strict'
 
-config = require '../../../config/environment'
+config = require '../../config/environment'
 
 module.exports = (req, res, next) ->
 

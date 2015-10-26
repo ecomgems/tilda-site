@@ -4,7 +4,7 @@
 
 'use strict'
 
-config = require '../../../config/environment'
+config = require '../../config/environment'
 redis = require 'redis'
 
 Promise = require 'bluebird'
