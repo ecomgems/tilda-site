@@ -32,6 +32,9 @@ Helper =
         Key: key
         ACL: 'public-read'
 
+    # TODO Invalidation request to CloudFront
+    # TODO Upload file only if it was changed or missed on Cloud
+
     s3obj
     .upload Body: buf
     .send (err, data) ->

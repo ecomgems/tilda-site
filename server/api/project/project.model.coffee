@@ -71,14 +71,10 @@ class Project
       .list(_project.js)
       .then (jsList)->
 
-        console.log "JS:", jsList
-
         _project.js = jsList
         CDNify.list(_project.css)
 
       .then (cssList)->
-
-        console.log "CSS:", cssList
 
         _project.css = cssList
         projectJson = JSON.stringify(_project)
