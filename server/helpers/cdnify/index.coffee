@@ -37,7 +37,11 @@ class CDNify
     _cdnKey = null
 
     request(url)
-      .then (content)->
+      .then (content) ->
+
+        CDNify.content(content)
+
+      .then (content) ->
 
         _cdnKey = url.replace('http://tilda.ws/', '')
         awsHelper.upload _cdnKey, content
@@ -99,11 +103,49 @@ class CDNify
 
     # Fix Tilda CDN URLs
     content =
-    content
+      content
       .replace /http:\/\/images\.tildacdn\.info\//gi, '//images.tildacdn.info/'
 
 
-    def.resolve content
+    # Get all URLs from content
+    urls = content.match urlRegex()
+    urls = [] if not urls?
+
+
+    urls = _.unique urls
+
+    urls = _.map urls, (url) ->
+      url
+        .replace /"/g, ''
+        .replace /\'/g, ''
+        .replace /\\'/g, ''
+        .replace /\(/g, ''
+        .replace /\)/g, ''
+
+
+    urls = _.filter urls, (url) ->
+      match = tildaImages.match url
+      match? and match.domain? and match.domain is 'tilda' and match.tld? and match.tld is 'ws'
+
+    promises = []
+
+    for url in urls
+      promises.push CDNify.exchange(url)
+
+    Promises
+      .all promises
+      .then (cdnUrls) ->
+
+        for url, i in urls
+          content = content.replace url, cdnUrls[i]
+          content = content.replace url, cdnUrls[i]
+
+        def.resolve content
+
+        return
+
+      .catch (err) ->
+        def.reject err
 
 
     def.promise
