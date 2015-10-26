@@ -28,5 +28,8 @@ module.exports =
   # Facebook
   FACEBOOK_APP_ID: 'facebook-app-id'
 
+  # Direct URL to Favicon
+  FAVICON_URL: '//images.tildacdn.info/9ce081a1-8a77-44f5-997f-29a1a61b1037/favicon.ico'
+
   # Google Analytics ID
   GOOGLE_ANALYTICS_ID: 'google-analytics-id'
