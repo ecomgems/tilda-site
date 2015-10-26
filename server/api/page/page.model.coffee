@@ -18,6 +18,8 @@ liquid = require 'liquid-node'
 fs = require 'fs'
 Promises.promisifyAll(fs)
 
+CDNify = require '../../helpers/cdnify'
+
 class Page
 
   @_get = (key) ->
@@ -211,6 +213,10 @@ class Page
         config: config
         protocol: protocol
         project: project
+
+    .then (html) ->
+
+      return CDNify.content html
 
     .then (html) ->
 

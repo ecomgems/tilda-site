@@ -26,7 +26,9 @@
     "q": "^1.4.1",
     "redis": "^2.2.5",
     "request-promise": "^1.0.2",
-    "serve-favicon": "~2.2.1"
+    "serve-favicon": "~2.2.1",
+    "url-pattern": "^0.10.2",
+    "url-regex": "^3.0.0"
   },
   "devDependencies": {
     "coffeelint": "~1.9.7",

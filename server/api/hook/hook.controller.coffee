@@ -20,7 +20,7 @@ exports.hook = (req, res) ->
     id: pageId
     published: published
   .then (page) ->
-    console.log "Page #{page.title} was refreshed on Tilda"
+    console.log "Page #{page.title} was refreshed on Tilda" if page.title?
   .catch (err) ->
     console.error err
 

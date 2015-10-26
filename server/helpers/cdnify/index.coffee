@@ -20,6 +20,12 @@ Promises = require 'bluebird'
 request = require 'request-promise'
 path = require 'path'
 config = require '../../config/environment'
+urlRegex = require 'url-regex'
+urlPattern = require 'url-pattern'
+
+mime = require 'mime'
+
+tildaImages = new urlPattern '(:protocol\\://)(:subdomain.):domain.:tld(/*)'
 
 class CDNify
 
@@ -91,8 +97,13 @@ class CDNify
     def = Q.defer()
 
 
+    # Fix Tilda CDN URLs
+    content =
+    content
+      .replace /http:\/\/images\.tildacdn\.info\//gi, '//images.tildacdn.info/'
 
 
+    def.resolve content
 
 
     def.promise
