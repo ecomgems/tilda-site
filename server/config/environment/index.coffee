@@ -50,6 +50,10 @@ all =
 
   favicon_url: process.env.FAVICON_URL or false
 
+  google:
+    analytics:
+      id: process.env.GOOGLE_ANALYTICS_ID or false
+
 # Export the config object based on the NODE_ENV
 # ==============================================
 module.exports = _.merge(all, require('./' + process.env.NODE_ENV) or {})

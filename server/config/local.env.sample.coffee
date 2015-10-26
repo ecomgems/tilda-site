@@ -22,6 +22,11 @@ module.exports =
   TILDA_SECRET_KEY: 'secret-key'
   TILDA_404: '404'
 
+  # Redis URI
   REDIS_URI: 'redis://localhost:6379'
 
+  # Facebook
   FACEBOOK_APP_ID: 'facebook-app-id'
+
+  # Google Analytics ID
+  GOOGLE_ANALYTICS_ID: 'google-analytics-id'
