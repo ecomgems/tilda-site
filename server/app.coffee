@@ -13,40 +13,53 @@ config = require './config/environment'
 # Populate DB with sample data
 require './config/seed'  if config.seedDB
 
-# Init pages on fly
-Page = require './api/page/page.model'
-Project = require './api/project/project.model'
-Project
-.initProject()
-.then (project) ->
-  Page.initPages(project)
-.then () ->
-  console.log 'All pages are ready ヽ(^ᴗ^)丿'
-.catch (err)->
-  console.error err
-  return
 
+cluster = require 'cluster'
 
-# Setup HTTP and HTTPS servers
-app = express()
+if cluster.isMaster
 
-options =
-  key: fs.readFileSync(config.ssl.key).toString()
-  cert: fs.readFileSync(config.ssl.cert).toString()
+  # Init pages on fly
+  Page = require './api/page/page.model'
+  Project = require './api/project/project.model'
+  Project
+  .initProject()
+  .then (project) ->
+    Page.initPages(project)
+  .then () ->
+    console.log 'All pages are ready ヽ(^ᴗ^)丿'
+  .catch (err)->
+    console.error err
+    return
 
-httpServer = require('http').createServer app
-httpsServer = require('https').createServer options, app
+  threadCount = require('os').cpus().length
+  for i in [1..threadCount]
+    cluster.fork()
 
-require('./config/express') app
-require('./routes') app
+  cluster.on 'exit', (worker, code, signal)->
+    console.log "Worker #{worker.process.pid} died."
 
-# Start HTTP server
-httpServer.listen config.http_port, ->
-  console.log 'Express HTTP server listening on %d, in %s mode', config.http_port, app.get('env')
+else
 
-# Start HTTPS server
-httpsServer.listen config.https_port, ->
-  console.log 'Express HTTPS server listening on %d, in %s mode', config.https_port, app.get('env')
+  # Setup HTTP and HTTPS servers
+  app = express()
+
+  options =
+    key: fs.readFileSync(config.ssl.key).toString()
+    cert: fs.readFileSync(config.ssl.cert).toString()
+
+  httpServer = require('http').createServer app
+  httpsServer = require('https').createServer options, app
+
+  require('./config/express') app
+  require('./routes') app
+
+  # Start HTTP server
+  httpServer.listen config.http_port, ->
+    console.log 'Express HTTP server listening on %d, in %s mode', config.http_port, app.get('env')
+
+  # Start HTTPS server
+  httpsServer.listen config.https_port, ->
+    console.log 'Express HTTPS server listening on %d, in %s mode', config.https_port, app.get('env')
 
 
 
