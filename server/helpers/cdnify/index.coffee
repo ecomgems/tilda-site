@@ -15,13 +15,14 @@
 
 _ = require 'lodash'
 Q = require 'q'
-awsHelper = require '../aws'
+awsReducer = require '../reducer'
 Promises = require 'bluebird'
 request = require 'request-promise'
 path = require 'path'
 config = require '../../config/environment'
 urlRegex = require 'url-regex'
 urlPattern = require 'url-pattern'
+Skip = require '../skip'
 
 mime = require 'mime'
 
@@ -38,18 +39,22 @@ class CDNify
 
     request(url)
       .then (content) ->
+        if (path.extname(url) in ['.css', '.js'])
 
-        CDNify.content(content)
+          CDNify.content(content)
+        else
+
+          # Skip this chain
+          Skip(content)
 
       .then (content) ->
 
         _cdnKey = url.replace('http://tilda.ws/', '')
-        awsHelper.upload _cdnKey, content
+        awsReducer.upload _cdnKey, content
 
-      .then (data) ->
-
-        console.log ("#{_cdnKey} was uploaded to Amazon")
-        def.resolve "//#{config.amazon.cdn.domain}/#{_cdnKey}"
+      .then (key) ->
+        def.resolve "//#{config.amazon.cdn.domain}/#{key}"
+        return
 
       .catch (err) ->
         def.reject err
@@ -110,7 +115,6 @@ class CDNify
     # Get all URLs from content
     urls = content.match urlRegex()
     urls = [] if not urls?
-
 
     urls = _.unique urls
 

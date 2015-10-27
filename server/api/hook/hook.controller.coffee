@@ -3,6 +3,7 @@
 _ = require 'lodash'
 
 Page = require '../../api/page/page.model'
+Project = require '../../api/project/project.model'
 
 # Register Hook
 # from Tilda
@@ -14,15 +15,22 @@ exports.hook = (req, res) ->
   # Send response
   res.status(200).send 'OK'
 
-  # Refresh cached values
-  Page
-  .compile
-    id: pageId
-    published: published
-  .then (page) ->
-    console.log "Page #{page.title} was refreshed on Tilda" if page.title?
-  .catch (err) ->
-    console.error err
+  Project
+    .initProject()
+
+    # Refresh
+    # cached
+    # values
+    .then (project) ->
+
+      Page.compile
+        id: pageId
+        published: published
+
+    .then (page) ->
+      console.log "Page #{page.title} was refreshed on Tilda" if page.title?
+    .catch (err) ->
+      console.error err
 
   return
 
