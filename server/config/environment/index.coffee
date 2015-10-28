@@ -23,8 +23,8 @@ all =
 
   # SSL Certificates
   ssl:
-    key: process.env.SSL_KEY or 'path-to-key'
-    cert: process.env.SSL_CERT or 'path-to-cert'
+    key: process.env.SSL_KEY or './certs/server.key'
+    cert: process.env.SSL_CERT or './certs/server.crt'
 
   # Should we populate the DB with sample data?
   seedDB: false
