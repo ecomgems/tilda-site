@@ -32,6 +32,8 @@ module.exports = (app) ->
     forceDomain = require 'forcedomain'
     app.use forceDomain
       hostname: config.hostname
+      type: 'permanent'
+      protocol: false
 
   if 'production' is env
     app.use morgan('dev')
