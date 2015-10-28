@@ -12,6 +12,7 @@ Promise.promisifyAll(redis.RedisClient.prototype);
 Promise.promisifyAll(redis.Multi.prototype);
 
 client = redis.createClient config.redis.uri
+console.log "Connected to redis on #{config.redis.uri}"
+
 
 exports = module.exports = client
-

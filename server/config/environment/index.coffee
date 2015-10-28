@@ -7,6 +7,15 @@ requiredProcessEnv = (name) ->
   throw new Error('You must set the ' + name + ' environment variable')  unless process.env[name]
   process.env[name]
 
+if process.env.REDIS_PORT_6379_TCP_ADDR and process.env.REDIS_PORT_6379_TCP_PORT
+
+  redisAddr = process.env.REDIS_PORT_6379_TCP_ADDR
+  redisPort = process.env.REDIS_PORT_6379_TCP_PORT
+  dockerRedisUri = "redis://#{redisAddr}:#{redisPort}"
+else
+  dockerRedisUri = null
+
+
 # All configurations will extend these options
 # ============================================
 all =
@@ -34,7 +43,7 @@ all =
     session: 'tilda-site-secret'
 
   redis:
-    uri: process.env.REDIS_URI or 'redis://localhost:6379'
+    uri: dockerRedisUri or process.env.REDIS_URI or 'redis://localhost:6379'
 
   # Tilda Access Credentials
   tilda:
