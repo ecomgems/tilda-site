@@ -460,7 +460,6 @@ module.exports = (grunt) ->
         'env:prod'
         'express:prod'
         'wait'
-        'open'
         'express-keepalive'
       ]
 
@@ -519,4 +518,3 @@ module.exports = (grunt) ->
     'test'
     'build'
   ])
-
