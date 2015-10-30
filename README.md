@@ -61,7 +61,7 @@ docker run \
         ecomgems/tilda-site
 ```
 
-That's all. *tilda-site* will connect to your project on **Tilda** and pull content from there. Something will be uploaded onto Amazon Cloud and something will be stored in Redis. After about a minute you will have your site on the cloud. 
+That's all. *tilda-site* will connect to your project on **Tilda** and pull content from there. Something will be uploaded onto Amazon Cloud and something will be stored in Redis. After about a minute you will have your site on the cloud.
 
 ### Hooks from Tilda
 
@@ -88,7 +88,7 @@ Works smoothly with [Docker](https://www.docker.com/), [Redis](http://redis.io/)
 We wouldn't be able to deal without all these technologies.
 Thanks to all creators.
 
-## Support and Contribution
+## Contribution
 
 Feel free to fork the repo and contribute through pull requests. It's appreciated.
 
