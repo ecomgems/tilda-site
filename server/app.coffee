@@ -18,9 +18,11 @@ cluster = require 'cluster'
 
 if cluster.isMaster
 
-  # Init pages on fly
   Page = require './api/page/page.model'
   Project = require './api/project/project.model'
+  schedule = require 'node-schedule'
+
+  # Init pages on fly
   Project
   .initProject()
   .then (project) ->
@@ -30,6 +32,18 @@ if cluster.isMaster
   .catch (err)->
     console.error err
     return
+
+  # Completely recompile
+  # all pages each 12  hours
+  # to prevent outdated
+  # content delivery
+  schedule.scheduleJob '* * */12 * * *', ->
+    Project.get()
+    .then (project)->
+      Page.initPages(project, true)
+      return
+    .catch (err)->
+      console.error err
 
   threadCount = require('os').cpus().length
   for i in [1..threadCount]

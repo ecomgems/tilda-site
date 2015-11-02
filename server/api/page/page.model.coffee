@@ -91,7 +91,7 @@ class Page
   # if that's necessary
   # to recompile it
   ###
-  @compile = (page) ->
+  @compile = (page, overwrite = false) ->
 
     def = Q.defer()
 
@@ -104,7 +104,7 @@ class Page
     @isPageFresh page.id, page.published
     .then (isFresh) ->
 
-      if isFresh
+      if isFresh and not overwrite
         # Return page
         # and cancel
         # the chain
@@ -153,7 +153,7 @@ class Page
     def.promise
 
 
-  @initPages = (project) ->
+  @initPages = (project, overwrite = false) ->
 
     console.log "Prepare Tilda Pages for #{project.title} project"
     def = Q.defer()
@@ -171,7 +171,7 @@ class Page
         promises = []
 
         for page in pages
-          promises.push Page.compile page
+          promises.push Page.compile page, overwrite
 
         Promises.all promises
 
