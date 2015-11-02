@@ -45,7 +45,8 @@ if cluster.isMaster
     .catch (err)->
       console.error err
 
-  threadCount = require('os').cpus().length
+  cpuCount = require('os').cpus().length
+  threadCount = Math.ceil cpuCount * 1.5
   for i in [1..threadCount]
     cluster.fork()
 
