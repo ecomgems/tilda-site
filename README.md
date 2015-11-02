@@ -92,6 +92,12 @@ Thanks to all creators.
 
 Feel free to fork the repo and contribute through pull requests. It's appreciated.
 
+## Changes
+
+**1.0.1**
+- Use 1.5 multiplier to calculate thread count
+- Refresh all pages HTML each 12 hours to prevent links to outdated JS and CSS files (looks like temporary solution)
+
 ## License
 
 The MIT License (MIT)
