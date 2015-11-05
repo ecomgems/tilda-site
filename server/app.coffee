@@ -56,7 +56,7 @@ if cluster.isMaster
     # Restart worker
     # if it's production
     # mode
-    cluster.fork() if 'production' is env
+    cluster.fork() if process.env.NODE_ENV is 'production'
 
 else
 
