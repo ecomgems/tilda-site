@@ -39,7 +39,11 @@ class CDNify
 
     request(url)
       .then (content) ->
-        if (path.extname(url) in ['.css', '.js'])
+
+        # Content might
+        # be really empty
+        # So then skip it
+        if content.length and path.extname(url) in ['.css', '.js']
 
           CDNify.content(content)
         else
@@ -49,11 +53,17 @@ class CDNify
 
       .then (content) ->
 
-        _cdnKey = url.replace('http://tilda.ws/', '')
-        awsReducer.upload _cdnKey, content
+        if content.length
+          _cdnKey = url.replace('http://tilda.ws/', '')
+          awsReducer.upload _cdnKey, content
+        else
+          Skip(null)
 
       .then (key) ->
-        def.resolve "//#{config.amazon.cdn.domain}/#{key}"
+        if key
+          def.resolve "//#{config.amazon.cdn.domain}/#{key}"
+        else
+          def.resolve null
         return
 
       .catch (err) ->
@@ -94,6 +104,13 @@ class CDNify
     Promises
       .all promises
       .then (cdnUrls)->
+
+        # Filter files what
+        # never been uploaded
+        # because these are empty
+        cdnUrls = _.filter cdnUrls, (value) ->
+          value isnt null
+
         def.resolve niceUrls.concat(cdnUrls)
         return
       .catch (err)->
@@ -104,7 +121,6 @@ class CDNify
   @content = (content) ->
 
     def = Q.defer()
-
 
     # Fix Tilda CDN URLs
     content =
