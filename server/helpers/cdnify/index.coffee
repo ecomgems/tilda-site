@@ -37,8 +37,6 @@ class CDNify
 
     _cdnKey = null
 
-    console.log url
-
     request(url)
       .then (content) ->
 
