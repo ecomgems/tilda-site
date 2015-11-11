@@ -53,9 +53,8 @@ if cluster.isMaster
   cluster.on 'exit', (worker, code, signal)->
     console.log "Worker #{worker.process.pid} died."
 
-    # Restart worker
-    # if it's production
-    # mode
+    # Restart worker if
+    # it's production mode
     cluster.fork() if process.env.NODE_ENV is 'production'
 
 else

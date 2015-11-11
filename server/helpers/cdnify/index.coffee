@@ -37,6 +37,8 @@ class CDNify
 
     _cdnKey = null
 
+    console.log url
+
     request(url)
       .then (content) ->
 
@@ -145,7 +147,18 @@ class CDNify
 
     urls = _.filter urls, (url) ->
       match = tildaImages.match url
-      match? and match.domain? and match.domain is 'tilda' and match.tld? and match.tld is 'ws'
+
+      if match?
+
+        correctProtocol = match.protocol? and match.tld is 'http'
+        correctDomain = match.domain? and match.domain is 'tilda'
+        correctTld = match.tld? and match.tld is 'ws'
+
+        correctProtocol and correctDomain and correctTld
+
+      else
+
+        false
 
     promises = []
 
